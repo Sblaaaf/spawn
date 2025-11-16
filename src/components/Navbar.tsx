@@ -38,6 +38,12 @@ export default function Navbar() {
             >
               À propos
             </Link>
+            <Link
+              href="/dashboard"
+              className="text-[var(--accent)] hover:text-[var(--accent-light)] transition-colors font-semibold"
+            >
+              Dashboard
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">

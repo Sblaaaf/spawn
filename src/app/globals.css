@@ -1,6 +1,17 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap'); */
+
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('../fonts/ClashDisplay-Variable.woff2') format('woff2-variations');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
 
 :root {
+  --font-clash: 'ClashDisplay', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
   --accent: var(--color-primary);
   --accent-dark: var(--color-primary-hover);
   --accent-light: var(--color-teal-300);
