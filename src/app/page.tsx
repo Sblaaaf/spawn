@@ -8,9 +8,6 @@ import Footer from '../components/Footer';
 export default function Home() {
   return (
     <main>
-      {/* Background morphing gradient */}
-      <div className="morphing-gradient" />
-
       {/* Content */}
       <div className="relative z-10">
         <Navbar />

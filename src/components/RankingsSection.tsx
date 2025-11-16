@@ -43,7 +43,7 @@ export default function RankingsSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl heading-clash font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-clash font-bold mb-4">
             Meilleurs parieurs
           </h2>
           <p className="text-gray-400 text-lg">
@@ -79,7 +79,7 @@ export default function RankingsSection() {
                   >
                     {/* Rank */}
                     <td className="px-6 py-4">
-                      <span className="heading-clash font-bold text-lg">
+                      <span className="font-clash font-bold text-lg">
                         {index < 3 ? (
                           <span
                             className={

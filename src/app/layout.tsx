@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import localFont from 'next/font/local';
 import { AuthProvider } from '../lib/auth-context';
+import Navbar from '../components/Navbar';
 import './globals.css';
 
 const clashDisplay = localFont({
@@ -30,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${clashDisplay.variable} ${spaceGrotesk.variable} bg-gray-950 text-white font-space`}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Navbar />
+          <main>{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );

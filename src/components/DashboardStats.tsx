@@ -17,7 +17,7 @@ export default function DashboardStats() {
       {stats.map((stat, index) => (
         <div key={index} className="card-glass-hover p-6 text-center">
           <p className="text-gray-400 text-sm mb-2">{stat.label}</p>
-          <p className={`text-3xl heading-clash font-bold ${stat.color}`}>{stat.value}</p>
+          <p className={`text-3xl font-clash font-bold ${stat.color}`}>{stat.value}</p>
         </div>
       ))}
     </div>
