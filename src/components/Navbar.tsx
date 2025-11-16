@@ -50,6 +50,20 @@ export default function Navbar() {
             >
               Parier
             </Link>
+
+            {isAuthenticated && user && (
+              <>
+                <Link href="/dashboard" className="text-gray-300 hover:accent-text transition-colors">
+                  Dashboard
+                </Link>
+                {user.email === 'test@test.fr' && (
+                  <Link href="/admin" className="text-red-400 hover:text-red-300 transition-colors font-semibold">
+                    🔒 Admin
+                  </Link>
+                )}
+              </>
+            )}
+
           </div>
 
           <div className="flex items-center gap-4">
