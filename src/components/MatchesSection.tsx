@@ -18,6 +18,30 @@ interface Match {
   };
 }
 
+const MatchCardSkeleton = () => (
+  <div className="card-glass p-6 flex flex-col justify-between animate-pulse">
+    {/* Game Tag Skeleton */}
+    <div className="mb-4">
+      <div className="h-6 w-20 bg-gray-700/50 rounded-full"></div>
+    </div>
+
+    {/* Teams Skeleton */}
+    <div className="flex-1 flex flex-col justify-center mb-6">
+      <div className="h-6 w-3/4 mx-auto bg-gray-700/50 rounded mb-4"></div>
+      <div className="h-4 w-6 mx-auto bg-gray-700/50 rounded mb-4"></div>
+      <div className="h-6 w-3/4 mx-auto bg-gray-700/50 rounded"></div>
+    </div>
+
+    {/* Footer Skeleton */}
+    <div className="border-t border-white/10 pt-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="h-4 w-24 bg-gray-700/50 rounded"></div>
+      </div>
+      <div className="h-9 w-full bg-gray-700/50 rounded-lg"></div>
+    </div>
+  </div>
+);
+
 export default function MatchesSection() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
@@ -68,7 +92,11 @@ export default function MatchesSection() {
 
         {/* Matches Grid - Bento Layout */}
         {loading ? (
-          <div className="text-center text-gray-400">Chargement...</div>
+          <div className="bento-grid">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <MatchCardSkeleton key={index} />
+            ))}
+          </div>
         ) : (
           <div className="bento-grid">
             {matches.map((match) => (

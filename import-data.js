@@ -102,7 +102,7 @@ async function importData() {
         {}
       );
       idMap[user.id] = newUser.id;
-      console.log(`  âœ“ ${user.username} crÃ©Ã© (${newUser.id})`);
+      console.log(`  ✓ ${user.username} créé (${newUser.id})`);
     }
 
     // 6. Importer les match_odds

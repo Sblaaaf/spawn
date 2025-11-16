@@ -1,15 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import localFont from 'next/font/local';
+import { AuthProvider } from '../lib/auth-context';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-
 
 const clashDisplay = localFont({
   src: '../fonts/ClashDisplay-Variable.woff2',
+  variable: '--font-clash',
   display: 'swap',
-  variable: '--font-clash-display',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -19,12 +24,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="fr" className={`${inter.variable} ${clashDisplay.variable} bg-gray-950 text-white font-space`}>
-      <body>{children}</body>
+    <html lang="fr">
+      <body className={`${clashDisplay.variable} ${spaceGrotesk.variable} bg-gray-950 text-white font-space`}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

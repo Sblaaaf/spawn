@@ -16,11 +16,18 @@ export default function RankingsSection() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const records = await pb.collection('users').getFullList({
+        /* const records = await pb.collection('users').getFullList({
           sort: '-balance',
           limit: 10,
         });
-        setUsers(records);
+        setUsers(records); */
+        const records: User[] = await pb.collection('users').getFullList({
+          sort: '-balance',
+          $autoCancel: false, // Ajouté pour la robustesse, évite l'annulation auto
+        });
+        // Convertit les RecordModel en objets simples pour l'état React
+        const plainRecords = records.map((record) => ({ ...record }));
+        setUsers(plainRecords.slice(0, 10)); // Limite les résultats après la récupération
       } catch (error) {
         console.error('Erreur lors du chargement du classement:', error);
       } finally {
