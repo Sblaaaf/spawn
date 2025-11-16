@@ -1,18 +1,24 @@
-// src/app/page.tsx
-import { pb } from '../lib/pocketbase';
+/* import { pb } from '../lib/pocketbase'; */
+import Navbar from '../components/Navbar';
+import HeroBanner from '../components/HeroBanner';
+import MatchesSection from '../components/MatchesSection';
+import RankingsSection from '../components/RankingsSection';
+import Footer from '../components/Footer';
 
-export default async function Home() {
-  const records = await pb.collection('test').getFullList({ sort: '-created' });
-
+export default function Home() {
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Spawn - POC Esport</h1>
-      <h2 className="text-xl mb-2">Test de connexion PocketBase</h2>
-      <ul className="list-disc pl-6">
-        {records.map((record) => (
-          <li key={record.id}>{record.title}</li>
-        ))}
-      </ul>
+    <main>
+      {/* Background morphing gradient */}
+      <div className="morphing-gradient" />
+
+      {/* Content */}
+      <div className="relative z-10">
+        <Navbar />
+        <HeroBanner />
+        <MatchesSection />
+        <RankingsSection />
+        <Footer />
+      </div>
     </main>
   );
 }
