@@ -1,5 +1,4 @@
-/* import { pb } from '../lib/pocketbase'; */
-import Navbar from '../components/Navbar';
+import { pb } from '../lib/pocketbase';
 import HeroBanner from '../components/HeroBanner';
 import MatchesSection from '../components/MatchesSection';
 import RankingsSection from '../components/RankingsSection';
@@ -10,7 +9,6 @@ export default function Home() {
     <main>
       {/* Content */}
       <div className="relative z-10">
-        <Navbar />
         <HeroBanner />
         <MatchesSection />
         <RankingsSection />

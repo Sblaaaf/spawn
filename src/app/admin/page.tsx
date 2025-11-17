@@ -1,4 +1,3 @@
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import AdminGuard from '../../components/AdminGuard';
 import MatchesManager from '../../components/MatchesManager';
@@ -10,7 +9,6 @@ export default function AdminPage() {
       <main>
         <div className="morphing-gradient" />
         <div className="relative z-10">
-          <Navbar />
 
           {/* Admin Panel */}
           <section className="pt-32 pb-24 px-6">

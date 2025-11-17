@@ -1,4 +1,3 @@
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import BettingCard from '../../components/BettingCard';
@@ -26,7 +25,6 @@ export default async function BettingPage() {
       <main>
         <div className="morphing-gradient" />
         <div className="relative z-10">
-          <Navbar />
 
           {/* Betting Page Content */}
           <section className="pt-32 pb-24 px-6">

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import localFont from 'next/font/local';
-import { AuthProvider } from '../lib/auth-context';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { AuthProvider } from '../lib/auth-context';
 import './globals.css';
 
 const clashDisplay = localFont({
@@ -34,6 +35,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <main>{children}</main>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

@@ -1,4 +1,3 @@
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import DashboardStats from '../../components/DashboardStats';
@@ -10,7 +9,6 @@ export default function DashboardPage() {
       <main>
         <div className="morphing-gradient" />
         <div className="relative z-10">
-          <Navbar />
 
           {/* Dashboard Content */}
           <section className="pt-32 pb-24 px-6">
