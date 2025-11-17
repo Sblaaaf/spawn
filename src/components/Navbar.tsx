@@ -2,107 +2,109 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '../lib/auth-context';
 import AuthModal from './AuthModal';
+import { Trophy, BarChart3, User, LogOut, LogIn, ShieldCheck } from 'lucide-react';
+import clsx from 'clsx';
+
+const ADMIN_EMAILS = ['reno@test.com']; // à passer plus tard en env / helper partagé
 
 export default function Navbar() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: '/#matches', label: 'Matchs', icon: Trophy },
+    { href: '/#rankings', label: 'Classement', icon: BarChart3 },
+    { href: '/betting', label: 'Parier', icon: Trophy },
+    { href: '/dashboard', label: 'Dashboard', icon: User },
+  ];
+
+  const isAdmin = !!user && ADMIN_EMAILS.includes(user.email);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 card-glass border-b">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-black/60 backdrop-blur">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="text-2xl font-clash font-bold">
-              <span className="gradient-text">SPAWN</span>
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-sm font-bold">
+              SP
+            </div>
+            <div className="hidden sm:flex flex-col">
+              <span className="text-sm font-semibold tracking-tight">Spawn</span>
+              <span className="text-[11px] text-gray-400 group-hover:text-gray-300 transition">
+                Pariez sur l&apos;esport
+              </span>
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/#matches"
-              className="text-gray-300 hover:accent-text transition-colors duration-200"
-            >
-              Matchs
-            </Link>
-            <Link
-              href="/#rankings"
-              className="text-gray-300 hover:accent-text transition-colors duration-200"
-            >
-              Classement
-            </Link>
-            <Link
-              href="/#about"
-              className="text-gray-300 hover:accent-text transition-colors duration-200"
-            >
-              À propos
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-[var(--accent)] hover:text-[var(--accent-light)] transition-colors font-semibold"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/betting"
-              className="text-gray-300 hover:accent-text transition-colors duration-200"
-            >
-              Parier
-            </Link>
-
-            {isAuthenticated && user && (
-              <>
-                <Link href="/dashboard" className="text-gray-300 hover:accent-text transition-colors">
-                  Dashboard
+          {/* Links */}
+          <div className="hidden md:flex items-center gap-3">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = pathname === item.href || (item.href.startsWith('/#') && pathname === '/');
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={clsx(
+                    'flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-all',
+                    active
+                      ? 'bg-white/10 text-white'
+                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  )}
+                >
+                  <Icon size={16} />
+                  <span>{item.label}</span>
                 </Link>
-                {user.email === 'test@test.fr' && (
-                  <Link href="/admin" className="text-red-400 hover:text-red-300 transition-colors font-semibold">
-                    🔒 Admin
-                  </Link>
-                )}
-              </>
-            )}
+              );
+            })}
 
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-amber-500/15 text-amber-300 hover:bg-amber-500/25"
+              >
+                <ShieldCheck size={16} />
+                <span>Admin</span>
+              </Link>
+            )}
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right section (user / auth) */}
+          <div className="flex items-center gap-3">
             {isAuthenticated && user ? (
               <>
-                <div className="hidden sm:flex items-center gap-3">
-                  <div className="text-right">
-                    <p className="text-sm font-semibold">{user.username}</p>
-                    <p className="text-xs text-gray-400">
-                      ${(Number(user.balance) || 0).toLocaleString('fr-FR')}
-                    </p>
-                  </div>
-                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--accent)] to-[var(--accent-dark)] rounded-full flex items-center justify-center text-white font-semibold">
+                <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 rounded-full bg-white/5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-xs font-semibold">
                     {user.username?.charAt(0).toUpperCase() || 'U'}
                   </div>
+                  <div className="text-right">
+                    <p className="text-xs font-medium">{user.username}</p>
+                    <p className="text-[11px] text-gray-400">
+                      {(Number(user.balance) || 0).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                    </p>
+                  </div>
                 </div>
-
                 <button
                   onClick={() => logout()}
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 text-xs text-gray-200 hover:bg-white/10 transition"
                 >
-                  Déconnexion
+                  <LogOut size={14} />
+                  <span>Déconnexion</span>
                 </button>
               </>
             ) : (
-              <>
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
-                >
-                  Connexion
-                </button>
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="btn-accent"
-                >
-                  S'inscrire
-                </button>
-              </>
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-indigo-500 text-xs font-medium text-white hover:bg-indigo-400 transition"
+              >
+                <LogIn size={14} />
+                <span>Connexion / Inscription</span>
+              </button>
             )}
           </div>
         </div>
